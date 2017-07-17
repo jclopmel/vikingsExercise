@@ -39,57 +39,79 @@ function train (Vikings,Vikings) {
 
 var Saxons = function(health, strengh){
 
-  this.health 	= Math.random()*60;
-  this.strengh  = Math.random()*20;
+  this.health 	= Math.random()*80;
+  this.strengh  = Math.random()*25;
 
 }
 
 saxon1 = new Saxons ();
 saxon2 = new Saxons ();
 
-//Batalla con vida por debajo de cero
 
-//Duracion 5 a 8 turnos
-//Lucha de sajones aleatoriamente
+
 //Calculo del % victoria segun victimas
 
 
 function fight (numero1,numero2) {
 
-	var army = [];
+/*  -------------------------------------- creacion de las armadas    -------------------------------------------------  */
 
+	var army = [];												//Creación de army de vikingos
 	for(var i = 0; i <numero1; i++){
 
 		army.push(viking = new Vikings ());
 	}
 
 
-	var army2 = [];
-
+	var army2 = [];												//Creación de army de saxons
 	for(var i = 0; i <numero2; i++){
 
 		army2.push(saxon = new Saxons ());
 	}
 
+	/*  -------------------------------------- Bucle for para el combate    -------------------------------------------------  */
 
+	var turns= Math.floor(Math.random() * (8 - 5) + 5);
 
-saxon  = new Saxons ();
+	var vikingCasualties=0;
+	var saxonCasualties=0;
 
-	while(viking1.health > 0 && viking2.health > 0){
+	for (var i = 0; i < turns; i++) {
+		var fighter1=army[[Math.floor(Math.random()*10)]];
+		var fighter2=army2[[Math.floor(Math.random()*10)]];
+	
 
-		viking1.health = viking1.health-viking2.strengh;
-		
+	/*  -------------------------------------- Bucle while para el duelo entre dos    -------------------------------------------------  */
 
-		viking2.health = viking2.health-viking1.strengh;
-		
+		while(fighter1 > -10 && fighter2 > -10){
+
+			fighter1.health = fighter1.health-fighter2.strengh;
+			
+
+			fighter2.health = fighter2.health-fighter1.strengh;
+			
+			}
+
+		if (fighter1.health>fighter2.health){
+			console.log(fighter1.name+" ha ganado el combate");
+			saxonCasualties++;
+		}else if (fighter1.health<fighter2.health) {
+			console.log("El sajón ha ganado el combate");
+			vikingCasualties++;
+		}else{
+			console.log("El combate ha sido igualado");
 		}
 
-	if (viking1.health>viking2.health){
-		console.log(viking1.name+" ha ganado el combate");
-	}else if (viking1.health<viking2.health) {
-		console.log(viking2.name+" ha ganado el combate");
-	}else{
-		console.log("El combate ha sido igualado");
 	}
+	var winner;
+
+	if(vikingCasualties>saxonCasualties){
+		winner="saxons";
+		}else{
+			winner="vikings"
+		}
+
+		console.log("Los ganadores son los "+winner+" tras "+turns+" turnos de combate. Ha habido "+vikingCasualties+" vikingos muertos frente a "+saxonCasualties+" sajones muertos.");
+
 }
 
