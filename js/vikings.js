@@ -46,8 +46,8 @@
 
 	var Saxons = function(health, strengh){							//Función para crear sajones
 
-	  this.health 	= randomNumber(90,70);
-	  this.strengh  = randomNumber(20,10);
+	  this.health 	= randomNumber(100,80);
+	  this.strengh  = randomNumber(30,10);
 	  this.weapon 	= weapons[randomNumber(0,3)];
 
 	}
@@ -81,42 +81,34 @@
 		var saxonCasualties=0;
 
 		for (var i = 0; i < turns; i++) {
-			var fighter1=army[randomNumber(num1,1)];					//Antes era variable random*10, comprobar funcionalidad
-			var fighter2=army2[randomNumber(num2,1)];			
-		
 
-		/*  -------------------------------------- Bucle while para el duelo entre dos -------------------------------------------------  */
+			
+				var fighter1=army[randomNumber(num1,1)];					//Antes era variable random*10, comprobar funcionalidad
+				var fighter2=army2[randomNumber(num2,1)];			
+			
 
-			while(fighter1.health > -10 && fighter2.health > -10){
+			/*  -------------------------------------- Bucle while para el duelo entre dos -------------------------------------------------  */
 
-				var weaponsDamage;
+				while(fighter1.health > -10 && fighter2.health > -10){
 
-				if(Vikings.weapon || Saxons.weapon == "axe"){			//Condicional para el valor de las armas
-					weaponsDamage = 2;
-				} else if (Vikings.weapon || Saxons.weapon == "spear"){
-					weaponsDamage = 3;
-				} else if (Vikings.weapon || Saxons.weapon == "bow"){
-					weaponsDamage = 4;
-				} else {
-					weaponsDamage = 6;
+					var weaponsDamage;
+
+					fighter1.health = fighter1.health-fighter2.strengh-(weapons.indexOf(Saxons.weapon)*1.5);
+					
+
+					fighter2.health = fighter2.health-fighter1.strengh-(weapons.indexOf(Vikings.weapon)*1.5);
+					
+					}
+
+				if (fighter1.health>fighter2.health){						//Resultado del combate
+					console.log(fighter1.name+" ha ganado el combate");
+					saxonCasualties++;
+				}else if (fighter1.health<fighter2.health) {
+					console.log("El sajón ha ganado el combate");
+					vikingCasualties++;
+				}else{
+					console.log("El combate ha sido igualado");
 				}
-
-				fighter1.health = fighter1.health-fighter2.strengh-weaponsDamage;
-				
-
-				fighter2.health = fighter2.health-fighter1.strengh-weaponsDamage;
-				
-				}
-
-			if (fighter1.health>fighter2.health){						//Resultado del combate
-				console.log(fighter1.name+" ha ganado el combate");
-				saxonCasualties++;
-			}else if (fighter1.health<fighter2.health) {
-				console.log("El sajón ha ganado el combate");
-				vikingCasualties++;
-			}else{
-				console.log("El combate ha sido igualado");
-			}
 
 		}
 		var winner;														//Resultado de la función fight.
