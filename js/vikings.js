@@ -2,12 +2,12 @@
 	var weapons 	= ["axe","spear","bow","shield"];
 	var names 		= ["Ragnar", "Loky", "Lagertha", "Bjorn","Lohtbruck", "Hans", "Jensen", "Olaf", "Sven", "Axe"];
 
-	function randomNumber (min, max){
+	function randomNumber (min, max){ 								//Esta función sirve para crear números aleatorios.
 		return Math.floor(Math.random() * (max - min) + min);
 	}
 
 
-	var Vikings = function(name, health, strengh){
+	var Vikings = function(name, health, strengh, weapon){			//Función para crear vikingos
 
 	  this.name 	= names[randomNumber(10,1)];
 	  this.health 	= randomNumber(100,80);
@@ -15,16 +15,15 @@
 	  this.weapon 	= weapons[randomNumber(0,3)];
 
 	}
+	
+	viking1 = new Vikings ('Ragnar', 100, 9, "axe");
+	viking2 = new Vikings ('Loky', 90, 7, "spear");
+	viking3 = new Vikings ('Lagertha', 110, 5, "bow");
+	viking4 = new Vikings ('Bjorn', 120, 3, "shield");
+	viking5 = new Vikings ('Lohtbruck', 80, 11,"axe");
+	
 
-	/*
-	viking1 = new Vikings ('Ragnar', 100, 9);
-	viking2 = new Vikings ('Loky', 90, 7);
-	viking3 = new Vikings ('Lagertha', 110, 5);
-	viking4 = new Vikings ('Bjorn', 120, 3);
-	viking5 = new Vikings ('Lohtbruck', 80, 11);
-	*/
-
-	function train (Vikings,Vikings) {
+	function train (Vikings,Vikings) {								//Función de entrenamiento
 
 		while(viking1.health > 0 && viking2.health > 0){
 
@@ -35,7 +34,7 @@
 			//console.log(viking1.name+" ha atacado a "+viking2.name+"  y le quedan "+viking2.health+" puntos de vida");
 			}
 
-		if (viking1.health>viking2.health){
+		if (viking1.health>viking2.health){	
 			console.log(viking1.name+" ha ganado el combate");
 		}else if (viking1.health<viking2.health) {
 			console.log(viking2.name+" ha ganado el combate");
@@ -45,8 +44,7 @@
 	}
 
 
-
-	var Saxons = function(health, strengh){
+	var Saxons = function(health, strengh){							//Función para crear sajones
 
 	  this.health 	= randomNumber(90,70);
 	  this.strengh  = randomNumber(20,10);
@@ -57,7 +55,8 @@
 	saxon1 = new Saxons ();
 	saxon2 = new Saxons ();
 
-	function fight (num1,num2) {
+
+	function fight (num1,num2) {									//Función combate
 
 	/*  -------------------------------------- creacion de las armadas    -------------------------------------------------  */
 
@@ -83,23 +82,33 @@
 
 		for (var i = 0; i < turns; i++) {
 			var fighter1=army[randomNumber(num1,1)];					//Antes era variable random*10, comprobar funcionalidad
-			var fighter2=army2[randomNumber(num2,1)];
-
-//Meter un object.prototype para añadir el arma y su valor como fuerza de ataque			
+			var fighter2=army2[randomNumber(num2,1)];			
 		
 
-		/*  -------------------------------------- Bucle while para el duelo entre dos    -------------------------------------------------  */
+		/*  -------------------------------------- Bucle while para el duelo entre dos -------------------------------------------------  */
 
-			while(fighter1 > -10 && fighter2 > -10){
+			while(fighter1.health > -10 && fighter2.health > -10){
 
-				fighter1.health = fighter1.health-fighter2.strengh;
+				var weaponsDamage;
+
+				if(Vikings.weapon || Saxons.weapon == "axe"){			//Condicional para el valor de las armas
+					weaponsDamage = 2;
+				} else if (Vikings.weapon || Saxons.weapon == "spear"){
+					weaponsDamage = 3;
+				} else if (Vikings.weapon || Saxons.weapon == "bow"){
+					weaponsDamage = 4;
+				} else {
+					weaponsDamage = 6;
+				}
+
+				fighter1.health = fighter1.health-fighter2.strengh-weaponsDamage;
 				
 
-				fighter2.health = fighter2.health-fighter1.strengh;
+				fighter2.health = fighter2.health-fighter1.strengh-weaponsDamage;
 				
 				}
 
-			if (fighter1.health>fighter2.health){
+			if (fighter1.health>fighter2.health){						//Resultado del combate
 				console.log(fighter1.name+" ha ganado el combate");
 				saxonCasualties++;
 			}else if (fighter1.health<fighter2.health) {
@@ -110,7 +119,7 @@
 			}
 
 		}
-		var winner;
+		var winner;														//Resultado de la función fight.
 
 		if(vikingCasualties>saxonCasualties){
 			winner="saxons";
