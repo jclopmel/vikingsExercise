@@ -1,6 +1,6 @@
 
 	var weapons 	= ["axe","spear","bow","shield"];
-	var names 		= ["Ragnar", "Loky", "Lagertha", "Bjorn","Lohtbruck", "Hans", "Jensen", "Olaf", "Sven", "Axe"];
+	var names 		= ["Ragnar", "Loky", "Lagertha", "Bjorn","Lohtbruck", "Hans", "Jensen", "Olaf", "Sven", "Axe"]; 	//armas y nombres para los vikings
 
 	function randomNumber (min, max){ 								//Esta función sirve para crear números aleatorios.
 		return Math.floor(Math.random() * (max - min) + min);
@@ -28,10 +28,7 @@
 		while(viking1.health > 0 && viking2.health > 0){
 
 			viking1.health = viking1.health-viking2.strengh;
-			//console.log(viking2.name+" ha atacado a "+viking1.name+" y le quedan "+viking1.health+" puntos de vida");
-
 			viking2.health = viking2.health-viking1.strengh;
-			//console.log(viking1.name+" ha atacado a "+viking2.name+"  y le quedan "+viking2.health+" puntos de vida");
 			}
 
 		if (viking1.health>viking2.health){	
@@ -46,8 +43,8 @@
 
 	var Saxons = function(health, strengh){							//Función para crear sajones
 
-	  this.health 	= randomNumber(100,80);
-	  this.strengh  = randomNumber(30,10);
+	  this.health 	= randomNumber(60,30);
+	  this.strengh  = randomNumber(20,5);
 	  this.weapon 	= weapons[randomNumber(0,3)];
 
 	}
@@ -58,7 +55,7 @@
 
 	function fight (num1,num2) {									//Función combate
 
-	/*  -------------------------------------- creacion de las armadas    -------------------------------------------------  */
+/*  -------------------------------------- creacion de las armadas    -------------------------------------------------  */
 
 		var army = [];												//Creación de army de vikingos
 		for(var i = 0; i <num1; i++){
@@ -73,7 +70,7 @@
 			army2.push(saxon = new Saxons ());
 		}
 
-		/*  -------------------------------------- Bucle for para el combate    -------------------------------------------------  */
+/*  -------------------------------------- Bucle for para el combate    -------------------------------------------------  */
 
 		var turns= randomNumber(8,5);
 
@@ -87,8 +84,8 @@
 				var fighter2=army2[randomNumber(num2,1)];			
 			
 
-			/*  -------------------------------------- Bucle while para el duelo entre dos -------------------------------------------------  */
-
+/*  -------------------------------------- Bucle while para el duelo entre dos -------------------------------------------------  */
+			
 				while(fighter1.health > -10 && fighter2.health > -10){
 
 					var weaponsDamage;
